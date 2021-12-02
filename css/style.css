@@ -17,6 +17,12 @@ body{
 }
 
 /* the main part of the site that get and show all information */
-/* .container{
+.container{
+    max-width: 1000px;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-height: 100vh;
+}
 
-} */
