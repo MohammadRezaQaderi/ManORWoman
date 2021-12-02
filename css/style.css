@@ -7,7 +7,7 @@
 
 /* we have background image and make it and make it full width for cover all the site */
 body{
-    /* background: url("../image/bg.jpg") no-repeat center center fixed; */
+    background: url("../image/bg.jpg") no-repeat center center fixed;
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -23,6 +23,211 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-around;
-    min-height: 100vh;
+    min-height: 10vh;
+    
 }
 
+
+/* the card maked for each section */
+.card{
+    margin-top: 75px;
+    position: relative;
+    width: 750px;
+    height: 500px;
+    display: flex;
+    flex-direction: row;
+    background-color: #fff;
+    opacity: .85;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.left{
+    justify-content: center;
+    align-items: center;
+}
+
+.right{
+    justify-content: center;
+    align-items: center;
+}
+
+.info_wrapper{
+    width: 360px;
+}
+
+
+/* make the div of info-name (lable and input) make relative */
+.info-name>div{
+    position: relative;
+}
+
+
+
+
+/**
+* Make the field a flex-container, reverse the order so label is on top.
+*/
+ 
+.info-name {
+    display: flex;
+    flex-flow: column-reverse;
+    margin-bottom: 1em;
+}
+
+/**
+* Add a transition to the label and input.
+*/
+.info-name__input, .info-name__label {
+    transition: all 0.2s;
+    touch-action: manipulation;
+  }
+.info-name__input {
+    font-size: 1.5em;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+    font-family: inherit;
+    -webkit-appearance: none;
+    border-radius: 0;
+    padding: 0;
+    cursor: text;
+  }
+  
+  .info-name__input:focus {
+    outline: 0;
+    border-bottom: 1px solid #666;
+  }
+  
+  .info-name__label{
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  /**
+  * Translate down and scale the label up to cover the placeholder,
+  * when following an input (with placeholder-shown support).
+  * Also make sure the label is only on one row, at max 2/3rds of the
+  * field—to make sure it scales properly and doesn't wrap.
+  */
+  .info-name__input:placeholder-shown + .info-name__label {
+    cursor: text;
+    max-width: 66.66%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transform-origin: left bottom;
+    transform: translate(0, 2.125rem) scale(1.5);
+  }
+  /**
+  * By default, the placeholder should be transparent. Also, it should 
+  * inherit the transition.
+  */
+  ::-webkit-input-placeholder {
+    opacity: 0;
+    transition: inherit;
+  }
+  /**
+  * Show the placeholder when the input is focused.
+  */
+  .info-name__input:focus::-webkit-input-placeholder {
+    opacity: 1;
+  }
+  /**
+  * When the element is focused, remove the label transform.
+  * Also, do this when the placeholder is _not_ shown, i.e. when 
+  * there's something in the input at all.
+  */
+  .info-name__input:not(:placeholder-shown) + .info-name__label,
+  .info-name__input:focus + .info-name__label {
+    transform: translate(0, 0) scale(1);
+    cursor: pointer;
+  }
+
+  /* make the dashed border */
+.saved{
+    border-style: dashed;
+    border-color: rgb(122, 122, 122);
+    border-spacing: 15px 50px;
+}
+  
+/* Radio Button */
+
+
+
+
+/* Headers */
+
+/*
+Header that show the content subject 
+*/
+
+.info_card__header , .predict__header , .saved-answer__header {
+    font-size: 3rem;
+    margin: 15px 0;
+    color: #333;
+}
+
+.predict__content , .predict__value{
+    color: #666;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+    white-space: pre-line;
+}
+
+
+
+/* BUTTONS */
+
+
+/* 
+    Style for search button, we set the width by it's parent, and change the color to gradient. you can see other styles in this selector. 
+*/
+
+.info_wrapper__button , .save_wrapper__button, .saved-answer__button {
+    display: block;
+    width: 75%;
+    height: 50px;
+    border-radius: 25px;
+    margin: 0.5rem 0.5rem;
+    font-size: 1rem;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    background-size: 200%;
+    transition: .5s;
+    text-transform: uppercase;
+}
+
+.saved-answer__button {
+    width: 50%;
+}
+
+/* 
+    Style for search button, we set the width by it's parent, and change the color to gradient. you can see other styles in this selector. 
+*/
+
+.save_wrapper__button  {
+    background-image: linear-gradient(to right,#44c24a 0%, #318cd6 60%);
+}
+
+.saved-answer__button{
+    background-image: linear-gradient(to right,#44c24a 0%, #318cd6 60%);
+}
+.info_wrapper__button{
+    background-image: linear-gradient(to right,#e66465 0%, #9198e5 60%);
+}
+
+
+/* 
+    For better experience (hover mode).
+*/
+
+.info_wrapper__button:hover, .save_wrapper__button:hover{
+    background-position: right;
+}
+
+.saved-answer__button:hover {
+    background-position: right;
+}
