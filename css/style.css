@@ -201,7 +201,9 @@ Header that show the content subject
 }
 
 .saved-answer__button {
-    width: 50%;
+    width: 25%;
+    height: 35px;
+    font-size: 0.5rem;
 }
 
 /* 
