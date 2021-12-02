@@ -2,10 +2,12 @@ const usernameInput = document.querySelector('.info-name__input');
 const submitButton = document.querySelector('.info_wrapper__button');
 const males = document.querySelector('.predict__content');
 const maleValue = document.querySelector('.predict__value');
+const clearButton = document.querySelector('.saved-answer__button');
+const saveButton = document.querySelector('.save_wrapper__button');
+const whichMale = document.querySelector('.male');
 
 //regex expression:
 var reg_name_lastname = /^[a-zA-Z\s]*$/;
-
 
 
 // displays each given message as an error message 
@@ -36,7 +38,8 @@ function validations(usernameInput){
     if(!reg_name_lastname.test(usernameInput)){
         console.log("Correct your First Name: only letters and spaces.");
         valid = false;
-    }
+        document.querySelector('.info-name__input').value = '';
+        }
     return valid;
 }
 // get name from API and return the json value.
@@ -68,6 +71,8 @@ async function sendRequest(e) {
     }
     e.preventDefault();
     let userData;
+    showSaved(username);
+    clearOneLocalStorage(username);
     userData = await JSON.parse(window.localStorage.getItem(username));
     if (userData == null) {
         userData = await getUserData(username);
@@ -78,4 +83,54 @@ async function sendRequest(e) {
     fillResult(userData);
 }
 
+// show the saved 
+function showSaved(usernameInput){
+    console.log("showing...");
+    if(localStorage.length > 0 ){
+        if(localStorage.getItem(usernameInput) != null){ 
+            var mainContainer = document.querySelector('.saved-answer__header');;
+            var div = document.createElement("div");
+            content = localStorage.getItem(usernameInput);
+            // console.log(localStorage.getItem(usernameInput)['name']);
+            // div.innerHTML = content.name + "`s Male is : " + content['"gender"'] + " with " +content['probability'] +" probability.";
+            div.innerHTML = content;
+            div.style.cssText ="font-size:10px;";
+            mainContainer.appendChild(div);
+        }
+    }
+}
+
+// clear the local storage for the repetitive name
+async function clearOneLocalStorage(usernameInput) {
+    console.log(usernameInput);
+    localStorage.removeItem(usernameInput);
+}
+
+
+
+// clear the local storage and use location.reload() to reaload page after delete storage
+async function clearLocalStorage() {
+    window.localStorage.clear();
+    location.reload();
+}
+
+// clear the local storage and use location.reload() to reaload page after delete storage
+async function forceSave() {
+    let username = usernameInput.value;
+    if (username == "") {
+        console.log("username was empty");
+        return;
+    }
+    else{
+        clearOneLocalStorage(username);
+        if(document.getElementById('male').checked) {
+            localStorage.setItem(username, 'male and probability is 0.999');
+        }else if(document.getElementById('female').checked) {
+            localStorage.setItem(username, 'female and probability is 0.999');            
+        }
+    }
+}
+
 submitButton.addEventListener('click', sendRequest);
+clearButton.addEventListener('click', clearLocalStorage);
+saveButton.addEventListener('click', forceSave);
