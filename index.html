@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ManOrWoman</title>
     <link rel="stylesheet" href="./css/style.css">
-
 </head>
 <body>
     <div class="fullscreen">
@@ -14,6 +13,43 @@
         <div class="close"></div>
     </div>
 
-    
+    <div class="container">
+        <div class="right">
+            <div class="info_card">
+                <h3 class="info_card__header">Mr. or Ms.?</h3>
+                <form class="info_wrapper">
+                    <div class="info-name">
+                        <div>
+                            <label class="info-name__label">Name</label>
+                            <input type="text" class="info-name__input" required="">
+                        </div>
+                    </div>
+                    <div class="info-male">
+                        <input type="radio" name="male" id="male" value="male">
+                        <label class="info-male__label">Male</label><br>
+                        <input type="radio" name="male" id="female" value="female">
+                        <label class="info-male__label">Female</label><br>
+                    </div>
+                    <input type="submit" class="info_wrapper__button" value="Submit"></button><br>
+                    <input type="submit" class="save_wrapper__button" value="Save"></button>
+                </form>
+            </div>
+        </div>
+        <div class="left">
+            <div class="prediction">
+                <div class="predict">
+                    <h3 class="predict__header">Prediction</h3>
+                    <p class="predict__content">Male/Female</p>
+                    <p class="predict__value">0.99</p>
+                </div>
+            </div>
+            <div class="saved">
+                <div class="saved-answer">
+                    <h3 class="saved-answer__header">Saved Answer</h3>
+                    <input type="submit" class="saved-answer__button" value="Clear"></button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

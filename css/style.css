@@ -7,7 +7,7 @@
 
 /* we have background image and make it and make it full width for cover all the site */
 body{
-    background: url("../image/bg.jpg") no-repeat center center fixed;
+    /* background: url("../image/bg.jpg") no-repeat center center fixed; */
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -16,3 +16,7 @@ body{
     width: 100%;
 }
 
+/* the main part of the site that get and show all information */
+/* .container{
+
+} */
