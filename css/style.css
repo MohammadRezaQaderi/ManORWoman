@@ -52,6 +52,7 @@ body{
     min-height: 10vh;
 }
 
+/* THE MAIN CARD */
 
 /* the card maked for each section format to specify from background */
 .card{
@@ -92,6 +93,7 @@ body{
 
 
 /**
+* The right part of the card to get info.
 * Make the field a flex-container, reverse the order so label is on top.
 */
  
@@ -102,12 +104,14 @@ body{
 }
 
 /**
-* Add a transition to the label and input.
+* Add a transition to the label and input. 
 */
 .info-name__input, .info-name__label {
     transition: all 0.2s;
     touch-action: manipulation;
   }
+
+  /* The Input part of the Style (make border and font size and family) */
 .info-name__input {
     font-size: 1.5em;
     border: 0;
@@ -118,16 +122,19 @@ body{
     padding: 0;
     cursor: text;
   }
-  
-  .info-name__input:focus {
+
+  /* when we want use to have input make some better style with just bot border  */
+.info-name__input:focus {
     outline: 0;
     border-bottom: 1px solid #666;
   }
-  
-  .info-name__label{
+
+  /* make the input style  */
+.info-name__label{
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
+
   /**
   * Translate down and scale the label up to cover the placeholder,
   * when following an input (with placeholder-shown support).
@@ -143,6 +150,7 @@ body{
     transform-origin: left bottom;
     transform: translate(0, 2.125rem) scale(1.5);
   }
+  
   /**
   * By default, the placeholder should be transparent. Also, it should 
   * inherit the transition.
@@ -151,12 +159,14 @@ body{
     opacity: 0;
     transition: inherit;
   }
+  
   /**
   * Show the placeholder when the input is focused.
   */
   .info-name__input:focus::-webkit-input-placeholder {
     opacity: 1;
   }
+  
   /**
   * When the element is focused, remove the label transform.
   * Also, do this when the placeholder is _not_ shown, i.e. when 
@@ -168,17 +178,12 @@ body{
     cursor: pointer;
   }
 
-  /* make the dashed border */
+  /* make the dashed border for saved answer*/
 .saved{
     border-style: dashed;
     border-color: rgb(122, 122, 122);
     border-spacing: 15px 50px;
 }
-  
-/* Radio Button */
-
-
-
 
 /* Headers */
 
