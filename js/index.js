@@ -98,6 +98,10 @@ async function sendRequest(e) {
         fillResult(userData);
         showSaved(userData);
     }
+    if(document.getElementById('female').checked || document.getElementById('female').checked ) {
+        document.getElementById('male').checked = false;
+        document.getElementById('female').checked = false;
+    }
 }
 
 // show the info in html.
@@ -151,6 +155,7 @@ async function forceSave(e) {
             userData = await JSON.parse(window.localStorage.getItem(username));
             fillResult(userData);
             showSaved(userData);
+            document.getElementById('male').checked = false;
             return
         }if(document.getElementById('female').checked) {
             console.log("sex is female choese");
@@ -158,6 +163,7 @@ async function forceSave(e) {
             userData = await JSON.parse(window.localStorage.getItem(username));
             fillResult(userData);
             showSaved(userData);
+            document.getElementById('female').checked = false;
             return            
         }
         else{

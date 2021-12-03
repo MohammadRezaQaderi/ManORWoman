@@ -17,7 +17,7 @@ body{
 }
 
 /*
-    This is the error container. 
+    This is the error container.  at the first is hidden and its showen when we have error.
 */
 
 .error {
@@ -39,9 +39,10 @@ body{
 /* active the error message */
 
 .error.active {
-    visibility: visible;
+   visibility: visible;
 }
-/* the main part of the site that get and show all information */
+
+/* the main part of the site that get and show all information we use flex display for it */
 .container{
     max-width: 1000px;
     width: 50%;
@@ -49,11 +50,10 @@ body{
     align-items: center;
     justify-content: space-around;
     min-height: 10vh;
-    
 }
 
 
-/* the card maked for each section */
+/* the card maked for each section format to specify from background */
 .card{
     margin-top: 75px;
     position: relative;
@@ -97,7 +97,7 @@ body{
  
 .info-name {
     display: flex;
-    flex-flow: column-reverse;
+    /* flex-flow: column-reverse; */
     margin-bottom: 1em;
 }
 
