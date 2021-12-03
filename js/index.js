@@ -10,6 +10,12 @@ const whichMale = document.querySelector('.male');
 var reg_name_lastname = /^[a-zA-Z\s]*$/;
 
 
+// for handle status code error
+function handleError(response) {
+    showErrorMessage(response.message);
+}
+
+
 // displays each given message as an error message 
 function showErrorMessage(message) {
     console.log(message);
@@ -89,20 +95,19 @@ function showSaved(usernameInput){
     if(localStorage.length > 0 ){
         if(localStorage.getItem(usernameInput) != null){ 
             var mainContainer = document.querySelector('.saved-answer__header');;
-            var div = document.createElement("div");
-            content = localStorage.getItem(usernameInput);
-            // console.log(localStorage.getItem(usernameInput)['name']);
-            // div.innerHTML = content.name + "`s Male is : " + content['"gender"'] + " with " +content['probability'] +" probability.";
-            div.innerHTML = content;
-            div.style.cssText ="font-size:10px;";
-            mainContainer.appendChild(div);
+            // var div = document.createElement("div");
+            // contents =  document.getElementById('.saving-answer').innerHTML;
+            content = JSON.parse(window.localStorage.getItem(usernameInput));
+            document.querySelector('.saving-answer').innerHTML = content.name + "`s Sex is : " + content.gender + " with " +content.probability +" probability.";
+            // div.style.cssText ="font-size:10px;";
+            // mainContainer.appendChild(div);
         }
     }
 }
 
 // clear the local storage for the repetitive name
 async function clearOneLocalStorage(usernameInput) {
-    console.log(usernameInput);
+    console.log(`the last perdict of ${usernameInput} is deleted`);
     localStorage.removeItem(usernameInput);
 }
 
@@ -110,6 +115,7 @@ async function clearOneLocalStorage(usernameInput) {
 
 // clear the local storage and use location.reload() to reaload page after delete storage
 async function clearLocalStorage() {
+    console.log("The Local Storage is Cleared :))");
     window.localStorage.clear();
     location.reload();
 }
@@ -124,9 +130,9 @@ async function forceSave() {
     else{
         clearOneLocalStorage(username);
         if(document.getElementById('male').checked) {
-            localStorage.setItem(username, 'male and probability is 0.999');
+            localStorage.setItem(username , `{"name":"${username}","gender":"male","probability":0.999,"count":271127}`);
         }else if(document.getElementById('female').checked) {
-            localStorage.setItem(username, 'female and probability is 0.999');            
+            localStorage.setItem(username , `{"name":"${username}","gender":"female","probability":0.999,"count":271127}`);            
         }
     }
 }
