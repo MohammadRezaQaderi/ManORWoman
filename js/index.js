@@ -1,3 +1,4 @@
+// Make the variable to have access to DOM of the html.
 const usernameInput = document.querySelector('.info-name__input');
 const submitButton = document.querySelector('.info_wrapper__button');
 const males = document.querySelector('.predict__content');
@@ -6,18 +7,18 @@ const clearButton = document.querySelector('.saved-answer__button');
 const saveButton = document.querySelector('.save_wrapper__button');
 const whichMale = document.querySelector('.male');
 const error = document.querySelector('.error');
+const saved = document.querySelector('.saving-answer');
 
-//regex expression:
-var reg_name_lastname = /^[a-zA-Z\s]*$/;
+//regex expression: (a-Z and space) to limit input. 
+var reg_name = /^[a-zA-Z\s]*$/;
 
 
-// for handle status code error
+// for handle status code error.
 function handleError(response) {
     showErrorMessage(response.message);
 }
 
-
-// displays each given message as an error message 
+// displays each given message as an error message.   
 function showErrorMessage(message) {
     console.log(message);
     error.classList.add('active');
@@ -27,30 +28,31 @@ function showErrorMessage(message) {
     }, 5000)
 }
 
-// fill result data in view .
+// fill result data in view. sex predictions.
 function fillResult(userData) {
     console.log(userData);
     setMale(userData);
 }
 
-// set the male or female
+// set the male or female in view.
 function setMale(userData){
     males.innerHTML = userData.gender;
     maleValue.innerHTML = userData.probability;
 }
 
-//Validation to the user_name input field
+//Validation to the user_name input field.
 function validations(usernameInput){
     valid = true;
-    if(!reg_name_lastname.test(usernameInput)){
+    if(!reg_name.test(usernameInput)){
         console.log("Correct your First Name: only letters and spaces.");
         showErrorMessage("Correct your First Name: only letters and spaces.");
         valid = false;
-        document.querySelector('.info-name__input').value = '';
+        usernameInput.value = '';
         }
     return valid;
 }
-// get name from API and return the json value.
+
+// get name from API and return the json value of the predictions.
 async function getUserData(usernameInput) {
     console.log("request");
     if(validations(usernameInput)){
@@ -98,19 +100,18 @@ async function sendRequest(e) {
     }
 }
 
-// show the saved 
+// show the info in html.
 function showSaved(userData){
     console.log("showing...");
     console.log(userData);
-    document.querySelector('.saving-answer').innerHTML = userData.name + "`s Sex is : " + userData.gender + " with " +userData.probability +" probability.";
+    saved.innerHTML = userData.name + "`s Sex is : " + userData.gender + " with " +userData.probability +" probability.";
 }
 
-// clear the local storage for the repetitive name
+// clear the local storage for the repetitive name.
 async function clearOneLocalStorage() {
-
     console.log(`the last perdict of ${usernameInput.value} is deleted`);
     localStorage.removeItem(usernameInput.value);
-    document.querySelector('.saving-answer').value = '';
+    saved.value = '';
     location.reload();
 }
 
@@ -123,7 +124,7 @@ async function clearLocalStorage() {
     location.reload();
 }
 
-// clear the local storage and use location.reload() to reaload page after delete storage
+// make the save from the predict or known sex.
 async function forceSave(e) {
     console.log("clicked on save");
     let username = usernameInput.value;
