@@ -16,6 +16,31 @@ body{
     width: 100%;
 }
 
+/*
+    This is the error container. 
+*/
+
+.error {
+    position: fixed;
+    border: 1px solid;
+    border-radius: 10px;
+    margin: 10px 10px;
+    padding: 15px 10px 15px 50px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    color: #D8000C;
+    background-color: #FFBABA;
+    background-image: url("../image/error (2).png");
+    bottom: 0;
+    left: 0;
+    visibility: hidden;
+}
+
+/* active the error message */
+
+.error.active {
+    visibility: visible;
+}
 /* the main part of the site that get and show all information */
 .container{
     max-width: 1000px;

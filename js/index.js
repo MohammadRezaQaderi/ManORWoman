@@ -5,6 +5,7 @@ const maleValue = document.querySelector('.predict__value');
 const clearButton = document.querySelector('.saved-answer__button');
 const saveButton = document.querySelector('.save_wrapper__button');
 const whichMale = document.querySelector('.male');
+const error = document.querySelector('.error');
 
 //regex expression:
 var reg_name_lastname = /^[a-zA-Z\s]*$/;
@@ -23,7 +24,7 @@ function showErrorMessage(message) {
     error.innerHTML = message;
     setTimeout(() => { // removes the error message from screen after 4 seconds.
         error.classList.remove('active');
-    }, 4000)
+    }, 5000)
 }
 
 // fill result data in view .
@@ -43,6 +44,7 @@ function validations(usernameInput){
     valid = true;
     if(!reg_name_lastname.test(usernameInput)){
         console.log("Correct your First Name: only letters and spaces.");
+        showErrorMessage("Correct your First Name: only letters and spaces.");
         valid = false;
         document.querySelector('.info-name__input').value = '';
         }
@@ -56,7 +58,7 @@ async function getUserData(usernameInput) {
             let response = await fetch(`https://api.genderize.io/?name=${usernameInput}`)
             let json = await response.json();
             if (response.status == 200) {
-                return json
+                return json;
             }
             handleError(json);
             return Promise.reject(`Request failed with error ${response.status}`);
@@ -77,38 +79,39 @@ async function sendRequest(e) {
     }
     e.preventDefault();
     let userData;
-    showSaved(username);
-    clearOneLocalStorage(username);
     userData = await JSON.parse(window.localStorage.getItem(username));
-    if (userData == null) {
+    if( userData == null){
         userData = await getUserData(username);
-        if (userData == null)
-            return;
-        window.localStorage.setItem(username, JSON.stringify(userData));
+        if(userData == null){
+            showErrorMessage("Network error :||");
+        }
+        if (userData.gender == null) {
+            showErrorMessage("Excuse us, we can`t predict this name genders :((");
+        }
+        else{
+            fillResult(userData);
+        }
     }
-    fillResult(userData);
+    else{
+        fillResult(userData);
+        showSaved(userData);
+    }
 }
 
 // show the saved 
-function showSaved(usernameInput){
+function showSaved(userData){
     console.log("showing...");
-    if(localStorage.length > 0 ){
-        if(localStorage.getItem(usernameInput) != null){ 
-            var mainContainer = document.querySelector('.saved-answer__header');;
-            // var div = document.createElement("div");
-            // contents =  document.getElementById('.saving-answer').innerHTML;
-            content = JSON.parse(window.localStorage.getItem(usernameInput));
-            document.querySelector('.saving-answer').innerHTML = content.name + "`s Sex is : " + content.gender + " with " +content.probability +" probability.";
-            // div.style.cssText ="font-size:10px;";
-            // mainContainer.appendChild(div);
-        }
-    }
+    console.log(userData);
+    document.querySelector('.saving-answer').innerHTML = userData.name + "`s Sex is : " + userData.gender + " with " +userData.probability +" probability.";
 }
 
 // clear the local storage for the repetitive name
-async function clearOneLocalStorage(usernameInput) {
-    console.log(`the last perdict of ${usernameInput} is deleted`);
-    localStorage.removeItem(usernameInput);
+async function clearOneLocalStorage() {
+
+    console.log(`the last perdict of ${usernameInput.value} is deleted`);
+    localStorage.removeItem(usernameInput.value);
+    document.querySelector('.saving-answer').value = '';
+    location.reload();
 }
 
 
@@ -121,22 +124,40 @@ async function clearLocalStorage() {
 }
 
 // clear the local storage and use location.reload() to reaload page after delete storage
-async function forceSave() {
+async function forceSave(e) {
+    console.log("clicked on save");
     let username = usernameInput.value;
     if (username == "") {
         console.log("username was empty");
         return;
     }
     else{
-        clearOneLocalStorage(username);
-        if(document.getElementById('male').checked) {
-            localStorage.setItem(username , `{"name":"${username}","gender":"male","probability":0.999,"count":271127}`);
-        }else if(document.getElementById('female').checked) {
-            localStorage.setItem(username , `{"name":"${username}","gender":"female","probability":0.999,"count":271127}`);            
+        e.preventDefault();
+        let userData;
+        userData = await JSON.parse(window.localStorage.getItem(username));
+        if(userData == null){
+            userData = await getUserData(username);
+            if(userData == null){
+                showErrorMessage("Network error :||");
+            }
+            if (userData.gender == null) {
+                showErrorMessage("Excuse us, we can`t predict this name genders :((");
+            }
+            if(document.getElementById('male').checked) {
+                console.log("sexi is male choese");
+                localStorage.setItem(username , `{"name":"${username}","gender":"male","probability":0.999,"count":271127}`);
+                return
+            }if(document.getElementById('female').checked) {
+                console.log("sexi is female choese");
+                localStorage.setItem(username , `{"name":"${username}","gender":"female","probability":0.999,"count":271127}`);
+                return            
+            }
+            fillResult(userData);
+            showSaved(userData);
         }
     }
 }
 
 submitButton.addEventListener('click', sendRequest);
-clearButton.addEventListener('click', clearLocalStorage);
 saveButton.addEventListener('click', forceSave);
+clearButton.addEventListener('click', clearOneLocalStorage);
