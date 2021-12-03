@@ -145,11 +145,11 @@ async function forceSave(e) {
                 showErrorMessage("Excuse us, we can`t predict this name genders :((");
             }
             if(document.getElementById('male').checked) {
-                console.log("sexi is male choese");
+                console.log("sex is male choese");
                 localStorage.setItem(username , `{"name":"${username}","gender":"male","probability":0.999,"count":271127}`);
                 return
             }if(document.getElementById('female').checked) {
-                console.log("sexi is female choese");
+                console.log("sex is female choese");
                 localStorage.setItem(username , `{"name":"${username}","gender":"female","probability":0.999,"count":271127}`);
                 return            
             }
