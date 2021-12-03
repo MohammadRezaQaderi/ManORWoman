@@ -156,6 +156,10 @@ async function forceSave(e) {
             fillResult(userData);
             showSaved(userData);
         }
+        else{
+            fillResult(userData);
+            showSaved(userData);
+        }
     }
 }
 
