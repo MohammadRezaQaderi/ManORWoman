@@ -144,19 +144,26 @@ async function forceSave(e) {
             if (userData.gender == null) {
                 showErrorMessage("Excuse us, we can`t predict this name genders :((");
             }
-            if(document.getElementById('male').checked) {
-                console.log("sex is male choese");
-                localStorage.setItem(username , `{"name":"${username}","gender":"male","probability":0.999,"count":271127}`);
-                return
-            }if(document.getElementById('female').checked) {
-                console.log("sex is female choese");
-                localStorage.setItem(username , `{"name":"${username}","gender":"female","probability":0.999,"count":271127}`);
-                return            
-            }
+        }
+        if(document.getElementById('male').checked) {
+            console.log("sex is male choese");
+            localStorage.setItem(username , `{"name":"${username}","gender":"male","probability":0.999,"count":271127}`);
+            userData = await JSON.parse(window.localStorage.getItem(username));
             fillResult(userData);
             showSaved(userData);
+            return
+        }if(document.getElementById('female').checked) {
+            console.log("sex is female choese");
+            localStorage.setItem(username , `{"name":"${username}","gender":"female","probability":0.999,"count":271127}`);
+            userData = await JSON.parse(window.localStorage.getItem(username));
+            fillResult(userData);
+            showSaved(userData);
+            return            
         }
         else{
+            console.log("the no sex is choese");
+            userData = await getUserData(username);
+            window.localStorage.setItem(username, JSON.stringify(userData));
             fillResult(userData);
             showSaved(userData);
         }
